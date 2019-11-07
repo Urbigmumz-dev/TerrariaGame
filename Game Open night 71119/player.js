@@ -28,7 +28,8 @@ class Player {
   }
   isTouchingGround(){
     for(let i = 0; i < cols; i++){
-      for(let other of terrains[terrainIndex][i]){
+      for(let j = 0; j < rows; j++){
+        let other = terrains[terrainIndex][i][j];
         if(other.type != "air" && other.type != "cloud" && other.type != "airBG"){
           if (((this.pos.y + this.height >= other.pos.y &&
                 this.pos.y + this.height <= other.pos.y + other.width) ||
@@ -38,10 +39,14 @@ class Player {
                 this.pos.x + this.length <= other.pos.x + other.width) ||
                 (this.pos.x >= other.pos.x &&
                 this.pos.x <= other.pos.x + other.width))){
+                if ((player.pos.y > other.pos.y) && (player.pos.y > terrains[terrainIndex][i + 1][j].pos.y || player.pos.y > terrains[terrainIndex][i - 1][j].pos.y)){
+                  this.pos.y = other.pos.y + other.width;
+                }else {
                   this.grounded = true;
                   this.vel.y = 0;
                   this.pos.y = other.pos.y - this.height;
                 }
+              }
               }
       }
     }
@@ -51,4 +56,7 @@ class Player {
             this.pos.y + this.height <= other.pos.y + other.width);
 
   }
+  isNotAbove(i,j){
+
+}
 }

@@ -8,6 +8,8 @@ let terrains = [];
 let terrainIndex = 0;
 let selectedPos = 0;
 let crafting = false;
+let buttons = [];
+let craftingItems = [];
 
 function setup(){
   createCanvas(windowWidth, windowHeight);
@@ -16,6 +18,11 @@ function setup(){
   for (let i = 0; i < 10; i++){
     terrains.push(generateTerrain());
   }
+
+  buttons.push(new Button(width * 0.5 - 300, height * 0.5, addItem()));
+  buttons.push(new Button(width * 0.5 - 250, height * 0.5, addItem()));
+  buttons.push(new Button(width * 0.5 - 200, height * 0.5, combine()));
+  buttons.push(new Button(width * 0.5 - 150, height * 0.5, collect()));
 }
 
 function draw(){
@@ -76,9 +83,28 @@ function craftStep(){
   fill(101);
   rect(width * 0.5 - 400, 100, 800, height - 200);
   displayInventory();
+  for(let i = 0; i < buttons.length; i++){
+    buttons[i].show();
+  }
+}
+
+function addItem(item, button){
+  craftingItems.push(item);
+  //button.itemType = item;
+}
+
+function combine(item1, item2){
+
+}
+
+function collect(item){
+
 }
 
 function keyPressed(){
+  if (key == 'c' || key == 'C'){
+    crafting = !crafting;
+  }
   if(!crafting){
     checkPlayerPresses(key, keyCode);
   }else{
@@ -93,7 +119,7 @@ function keyReleased(){
   }
 }
 
-function checkPlayerPresses(key, keCode){
+function checkPlayerPresses(key, keyCode){
   if (key == 'a'){
     player.vel.x = -8;
     player.pos.x -=1;
@@ -101,8 +127,6 @@ function checkPlayerPresses(key, keCode){
     player.vel.x = 8;;
   }else if (keyCode == 32 && player.grounded){
     player.pos.y = player.pos.y - w;
-  }else if (key == 'c' || key == 'C'){
-    crafting = !crafting;
   }
 
   if(keyCode == LEFT_ARROW && player.inventory.length > 0){
@@ -120,7 +144,7 @@ function checkPlayerPresses(key, keCode){
 
 function checkPlayerReleases(key, keyCode){
   if (key == 'a'){
-    player.acc.x =0;
+    player.acc.x = 0;
     player.vel.x = 0;
   }else if (key == 'd'){
     player.acc.x =0;
