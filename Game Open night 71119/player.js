@@ -29,7 +29,7 @@ class Player {
   isTouchingGround(){
     for(let i = 0; i < cols; i++){
       for(let other of terrains[terrainIndex][i]){
-        if(other.type != 'air' && other.type != "cloud"){
+        if(other.type != "air" && other.type != "cloud" && other.type != "airBG"){
           if (((this.pos.y + this.height >= other.pos.y &&
                 this.pos.y + this.height <= other.pos.y + other.width) ||
                 (this.pos.y >= other.pos.y &&

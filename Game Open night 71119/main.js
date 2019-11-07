@@ -45,6 +45,9 @@ function worldStep(){
 
   for (let i = 0; i < cols; i++){
     for (let j = 0; j < rows; j++){
+        // if (terrains[terrainIndex][i][j].type == "air" && j>rows *0.5+noise()*5){
+        //   terrains[terrainIndex][i][j].type = "airBG";
+        // }
       terrains[terrainIndex][i][j].show();
     }
   }
@@ -67,6 +70,7 @@ function worldStep(){
 
   displayInventory();
 }
+
 
 function craftStep(){
   fill(101);
@@ -162,6 +166,7 @@ function mousePressed(){
         }
         terrains[terrainIndex][i][j].type = "air";
       }
+
     }
   }
 }
